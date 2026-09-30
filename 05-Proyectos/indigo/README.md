@@ -42,7 +42,7 @@ flowchart LR
 - No se suben archivos de asistentes de IA (`CLAUDE.md`, `.claude/`, specs generados). Ver [Documentación](../../01-Estandares/documentacion.md).
 - **La autenticación va por InnLab Core**: el backend usa el guard y el cliente de [product-integration-guide](../../03-InnLab-Core/product-integration-guide.md), y el frontend recibe el SSO. No se construye login propio.
 - **Índigo reemplazará a [Growinn Index](../growinn-index/README.md).** Los hallazgos de Growinn están documentados para no repetirlos.
-- **(Pendiente)** Términos de dominio en español (`diagnosticador`, `macro_categorias`): ver [Decisiones](../../06-Referencia/decisiones-pendientes.md).
+- **(Pendiente)** Términos de dominio en español (`diagnosticador`, `macro_categorias`): ver [Pendientes por concretar](../../pendientes-por-concretar.md).
 
 ## Repos
 

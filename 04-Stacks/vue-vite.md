@@ -6,9 +6,12 @@
 
 **Repos:** [indigo-user-space](../05-Proyectos/indigo/indigo-user-space.md)
 
-**Por qué Vue en Índigo:** se eligió por velocidad de desarrollo, rendimiento y una curva de aprendizaje fácil para todo el equipo. Es una decisión tomada, y el frontend de Índigo se queda en Vue (ver [Decisiones](../06-Referencia/decisiones-pendientes.md)).
+**Por qué Vue en Índigo:** se eligió por velocidad de desarrollo, rendimiento y una curva de aprendizaje fácil para todo el equipo. Es una decisión tomada, y el frontend de Índigo se queda en Vue.
 
-## Estructura de carpetas (por feature)
+## Estructura de carpetas
+
+Base común del frontend: [Estructura de carpetas](../01-Estandares/estructura-de-carpetas.md). Cómo adoptarla en repos existentes sin reestructurar todo de golpe también está ahí.
+ (por feature)
 
 ```
 src/

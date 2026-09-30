@@ -50,6 +50,8 @@ InnLab (lo mínimo)
 | [Commits](01-Estandares/commits.md) | Conventional Commits, con ejemplos buenos y malos |
 | [Versionado y releases](01-Estandares/versionado-y-releases.md) | Qué versión poner (0.1.0, 1.0.0…) y cómo se hace un release |
 | [Issues y Pull Requests](01-Estandares/issues-y-pull-requests.md) | Del issue al merge, plantilla de PR y checklist de review |
+| [Estructura de carpetas](01-Estandares/estructura-de-carpetas.md) | Dónde va cada cosa en el back y el front, y cómo adoptarlo sin romper lo existente |
+| [Documentación en el código](01-Estandares/documentacion-en-codigo.md) | Comentario de qué hace y para qué sirve encima de cada función pública |
 | [Idioma y nomenclatura](01-Estandares/idioma-y-nomenclatura.md) | Qué va en inglés o en español; cómo nombrar archivos, clases, tablas y variables |
 | [Seguridad, secretos y accesos](01-Estandares/seguridad-y-accesos.md) | `.env`, qué hacer si se filtra una key, dueños de cada cuenta |
 | [Documentación](01-Estandares/documentacion.md) | Wiki como fuente de verdad, README corto, ADRs |
@@ -90,7 +92,7 @@ Catálogo completo: [05-Proyectos](05-Proyectos/README.md)
 
 ## 📚 Referencia
 
-**[Pendientes por concretar](06-Referencia/pendientes-por-concretar.md)** · [Mapa de servicios](06-Referencia/mapa-de-servicios.md) · [Plantillas](06-Referencia/plantillas.md) · [Glosario](06-Referencia/glosario.md) · [Decisiones](06-Referencia/decisiones-pendientes.md)
+**[Pendientes por concretar](pendientes-por-concretar.md)** · [Mapa de servicios](06-Referencia/mapa-de-servicios.md) · [Plantillas](06-Referencia/plantillas.md) · [Glosario](06-Referencia/glosario.md)
 
 ---
 

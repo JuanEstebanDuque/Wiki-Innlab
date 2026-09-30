@@ -2,7 +2,7 @@
 
 📍 [InnLab](../README.md) › [Estándares](README.md) › **Despliegue y CI/CD**
 
-> **Resumen:** **(En definición)** La plataforma de despliegue, la herramienta de CI y la infraestructura de base de datos (servidores de la universidad) se están definiendo. Esta card fija los **principios** que aplican sin importar lo que se elija. Opciones en [Decisiones](../06-Referencia/decisiones-pendientes.md).
+> **Resumen:** **(En definición)** La plataforma de despliegue, la herramienta de CI y la infraestructura de base de datos (servidores de la universidad) se están definiendo. Esta card fija los **principios** que aplican sin importar lo que se elija. Opciones en [Pendientes por concretar](../pendientes-por-concretar.md).
 
 ## Situación actual
 

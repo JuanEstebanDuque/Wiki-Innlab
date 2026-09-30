@@ -29,6 +29,10 @@ Plantilla en [Plantillas](../06-Referencia/plantillas.md). Tiene:
 
 **Hoy no cumplen:** `innlab-core-api` e `innlab-core-user-space` (README de la plantilla), `foresight-backend` (describe Keycloak, pero se usa Cognito) y `foresight-scrapping` (sin README).
 
+## Documentación dentro del código
+
+Los comentarios encima de funciones, métodos y componentes están en su propia card: [Documentación en el código](documentacion-en-codigo.md).
+
 ## ADRs (Architecture Decision Records)
 
 - Se escribe un ADR cuando la decisión **la necesitaría entender alguien nuevo** y **sería costoso revertirla**. Por ejemplo: la plataforma de despliegue, la base de datos estándar o la herramienta de CI.

@@ -16,7 +16,7 @@
 
 **No se mezclan idiomas en un mismo identificador:** `pagosAmedida.jsx` ❌ → `CustomPayments.jsx` ✅.
 
-**(Propuesta) Términos de dominio.** Algunos conceptos del negocio no tienen buena traducción (por ejemplo, `diagnosticador` o `macro_categorias` en Índigo). Hay dos opciones: traducirlos (`diagnostic`, `macro_categories`) o permitirlos en español, siempre que estén listados en el [Glosario](../06-Referencia/glosario.md). Ver [Decisiones pendientes](../06-Referencia/decisiones-pendientes.md).
+**(Propuesta) Términos de dominio.** Algunos conceptos del negocio no tienen buena traducción (por ejemplo, `diagnosticador` o `macro_categorias` en Índigo). Hay dos opciones: traducirlos (`diagnostic`, `macro_categories`) o permitirlos en español, siempre que estén listados en el [Glosario](../06-Referencia/glosario.md). Ver [Pendientes por concretar](../pendientes-por-concretar.md).
 
 ## Convenciones de nombres
 

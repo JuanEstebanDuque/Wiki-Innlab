@@ -29,15 +29,24 @@ El esquema de BD está hoy como SQL en el README. Ver deuda técnica.
 
 ## Estructura
 
+Es la **referencia** de la [estructura de carpetas](../../01-Estandares/estructura-de-carpetas.md) de backend.
+
 ```
-src/diagnosticador/
-  search/     → searchTavily, searchOpenAlex, fetchFulltext, fetchWebContent, rankSources
-  generate/   → claudeClient (OpenRouter + fallback), generateMacros, generateCategorias, generateItems
-  save/       → saveDiagnostic
-  cli/        → searchCli (prueba del pipeline desde la terminal)
-  types.ts
-  diagnosticador.{module,controller,service}.ts
-postman/                 → colección de endpoints
+src/
+  main.ts · app.module.ts
+  config/configuration.ts
+  common/          → decorators/, filters/, guards/, interceptors/, middleware/
+  diagnosticador/
+    diagnosticador.{module,controller,service}.ts (+ .spec.ts)
+    dto/           → un DTO por operación (generate-diagnostic, search-sources, suggest-enfoques…)
+    entities/      → macro-categoria, categoria, subcategoria, diagnostico
+    interfaces/    → diagnostico, source, subcategoria-revision
+    search/        → searchTavily, searchOpenAlex, fetchFulltext, fetchWebContent, rankSources
+    generate/      → claudeClient, generateMacros, generateCategorias, generateItems, reviseSubcategoria, suggestEnfoques
+    database/      → saveDiagnostic, fetchSubcategoriaContext, updateSubcategoria
+test/              → e2e
+docs/              → endpoints.md, diagrama de la BD
+postman/           → colección de endpoints
 ```
 
 ## Endpoints
@@ -54,7 +63,7 @@ Según el código: `PORT`, `ANTHROPIC_API_KEY`, `TAVILY_API_KEY`, `OPENALEX_API_
 
 ## Testing
 
-Vitest, con un `*.spec.ts` junto a cada archivo de `search/`, `generate/` y `save/`. **Es el ejemplo a seguir** para los demás backends.
+Vitest, con un `*.spec.ts` junto a cada archivo de `search/`, `generate/` y `database/`. **Es el ejemplo a seguir** para los demás backends.
 
 ```bash
 pnpm test         # unitarios

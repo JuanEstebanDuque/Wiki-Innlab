@@ -12,27 +12,28 @@ Se parte de **[product-integration-guide](../03-InnLab-Core/product-integration-
 
 ## Estructura de carpetas
 
+Base común del backend: [Estructura de carpetas](../01-Estandares/estructura-de-carpetas.md). Cómo adoptarla en repos existentes sin reestructurar todo de golpe también está ahí.
+
+
 ```
 src/
-  main.ts                 → bootstrap: prefijo /api, ValidationPipe, CORS desde env
+  main.ts
   app.module.ts
-  config/namespaces/      → configuración por namespace, validada al arrancar
-  auth/                   → guard JWT global + decoradores (viene de la plantilla)
-  innlab-api/             → cliente de la API interna de Core (viene de la plantilla)
-  health/                 → GET /health
-  common/                 → filtros, interceptors y utilidades compartidas
-  modules/
-    <dominio>/
-      <dominio>.module.ts
-      <dominio>.controller.ts
-      <dominio>.service.ts
-      <dominio>.service.spec.ts
-      dto/                → create-<x>.dto.ts, update-<x>.dto.ts
-      entities/           → <x>.entity.ts
-test/                     → e2e
+  config/                → lectura y validación de las variables de entorno
+  common/                → lo que usan varios módulos (según lo que haga falta:
+                           decorators/, filters/, guards/, interceptors/, middleware/…)
+  auth/                  → autenticación con InnLab Core (de product-integration-guide)
+  <modulo>/              → un módulo por dominio, directo en src/ (ej. diagnosticador/)
+    <modulo>.module.ts
+    <modulo>.controller.ts
+    <modulo>.service.ts
+    dto/                 → si el módulo recibe datos
+    entities/            → si el módulo tiene tablas en la BD
+    interfaces/          → si el módulo tiene tipos propios
+    …                    → otras carpetas que el módulo necesite (ej. search/, generate/, database/)
 ```
 
-`indigo-backend` agrupa por etapa del pipeline (`search/`, `generate/`, `save/`) dentro de un módulo. Es válido **dentro** de un módulo.
+El mínimo es `config/`, `common/`, `auth/` y los módulos; dentro de cada módulo y de `common/` se crean solo las carpetas que se usen. Ejemplo real: `indigo-backend`, cuyo módulo `diagnosticador/` agrega `search/`, `generate/` y `database/`.
 
 ## Reglas de código
 
@@ -56,7 +57,7 @@ test/                     → e2e
 
 ## Crear un módulo nuevo
 
-1. `nest g resource modules/<dominio>`.
+1. `nest g resource <dominio>` (queda directo en `src/<dominio>/`).
 2. Entidad en `entities/` y migración.
 3. DTOs con validación.
 4. Tests del service en el mismo PR (ver [Testing](../02-Testing/README.md)).

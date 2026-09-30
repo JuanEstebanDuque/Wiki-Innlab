@@ -11,7 +11,10 @@
 - **Repos nuevos: TypeScript** (`.tsx`/`.ts`). Así está `innlab-core-user-space` y es la referencia.
 - Los repos existentes en JS siguen en JS. **No se mezclan** archivos `.tsx` sueltos en un repo JS: si se migra, se migra completo y con `tsconfig.json`.
 
-## Estructura de carpetas (por feature)
+## Estructura de carpetas
+
+Base común del frontend: [Estructura de carpetas](../01-Estandares/estructura-de-carpetas.md). Cómo adoptarla en repos existentes sin reestructurar todo de golpe también está ahí.
+ (por feature)
 
 ```
 src/

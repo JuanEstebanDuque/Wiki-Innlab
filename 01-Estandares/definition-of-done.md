@@ -6,6 +6,7 @@
 
 - [ ] El código cumple los [Estándares](README.md) y las reglas de su [stack](../04-Stacks/README.md).
 - [ ] Hay tests para la lógica nueva o modificada, y pasan.
+- [ ] Las funciones y componentes públicos nuevos o modificados tienen su comentario de [documentación](documentacion-en-codigo.md).
 - [ ] Lint y build pasan sin errores.
 - [ ] No hay secretos, datos personales ni URLs de ambiente hardcodeadas.
 - [ ] El PR fue revisado y aprobado por al menos 1 persona.

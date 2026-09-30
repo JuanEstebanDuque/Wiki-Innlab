@@ -18,7 +18,7 @@
 
 | Opción | Cuándo | Qué haces |
 | --- | --- | --- |
-| **A. Arrancar de la plantilla** | Producto nuevo en NestJS | Clonas `product-integration-guide`, `cp .env.example .env` y agregas tus módulos en `src/modules/` siguiendo el patrón de `me/` |
+| **A. Arrancar de la plantilla** | Producto nuevo en NestJS | Clonas `product-integration-guide`, `cp .env.example .env` y agregas tus módulos directo en `src/<dominio>/`, con la [estructura estándar](../01-Estandares/estructura-de-carpetas.md) (la de indigo-backend) |
 | **B. Copiar piezas** | Ya tienes un backend NestJS | Copias `src/auth/`, `src/innlab-api/`, `src/config/` y `src/health/`. Registras `AuthModule`, `InnlabApiModule` y los guards globales (`JwtAuthGuard` + `RolesGuard`) en `app.module.ts` |
 | **C. Otro stack** | No es NestJS | Replicas el contrato con las librerías de tu lenguaje (ver abajo) |
 

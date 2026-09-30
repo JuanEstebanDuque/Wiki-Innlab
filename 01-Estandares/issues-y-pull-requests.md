@@ -53,6 +53,8 @@ Fixes #
 - [ ] Tiene tests para la lógica nueva o modificada, o justifica por qué no aplica.
 - [ ] No introduce secretos, credenciales ni URLs de producción hardcodeadas.
 - [ ] No sube archivos de asistentes de IA (`CLAUDE.md`, `.claude/`, specs generados).
+- [ ] Las funciones y componentes públicos nuevos o modificados tienen su [comentario de documentación](documentacion-en-codigo.md), y está al día.
+- [ ] Si mueve archivos, el PR es solo de `refactor:` y no mezcla cambios de lógica ([Estructura](estructura-de-carpetas.md)).
 - [ ] No deja `console.log` o `print` de depuración, ni código comentado sin explicación.
 - [ ] Los errores se manejan explícitamente (no hay `catch` vacíos).
 - [ ] Si cambia cómo se instala o se corre el repo, el README está actualizado.
