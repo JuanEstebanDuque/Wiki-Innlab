@@ -35,7 +35,7 @@ Fixes #
 - [ ] Sin secretos, datos personales ni URLs hardcodeadas
 - [ ] README / .env.example / wiki actualizados si aplica
 - [ ] **Validado en staging por quien revisa** (cuando exista el ambiente)
-- [ ] Backend: después del merge, Quality Gate de SonarQube Cloud en verde sobre `main`
+- [ ] Backend: Quality Gate de SonarQube Cloud en verde en este PR (check `sonarqube`)
 ```
 
 ## Issue

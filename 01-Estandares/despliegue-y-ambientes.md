@@ -48,7 +48,7 @@ PR abierto ─▶ CI (checks) ─▶ despliegue a STAGING + smoke test
 | 5. Promoción a producción | Al fusionar | Automático | `dev` → `main` (merge commit), despliegue a producción, smoke test y tag de la versión | Se avisa y se decide el rollback |
 | 6. Rollback | Solo si producción falla | Manual (botón del workflow) | Vuelve a desplegar en producción un tag anterior. **Staging no se toca** | — |
 
-**El smoke test** es una prueba corta contra el ambiente desplegado: la app responde, el `GET /health` del backend da 200 y, en los frontends, la página principal carga sin errores en consola (con Playwright). Corre desde GitHub Actions, sin servidor propio.
+**El smoke test** es una prueba corta contra el ambiente desplegado: en el backend, `GET /health` y `GET /health/ready` dan 200 y una ruta protegida da 401 sin token; en el frontend, la app carga sin errores en consola, las rutas de la SPA responden y el backend contesta. Vive en `.github/workflows/smoke.yml` de cada repo y corre desde GitHub Actions, sin servidor propio. Mientras no haya plataforma, se lanza a mano con la URL del ambiente.
 
 ## Mientras no hay plataforma: simulacro de promoción
 

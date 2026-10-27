@@ -14,4 +14,4 @@
 - [ ] El issue quedó cerrado por el PR (`Fixes #n`).
 - [ ] Si cambió cómo se instala, se corre, se configura o se despliega: README, `.env.example` y página de la wiki actualizados.
 - [ ] Si hubo una decisión de arquitectura: ADR escrito.
-- [ ] Promovido a producción (o, mientras no haya plataforma, con el simulacro de promoción en verde). En backends, Quality Gate de SonarQube Cloud en verde sobre `main`.
+- [ ] Promovido a producción (o, mientras no haya plataforma, con el simulacro de promoción en verde). En backends, Quality Gate de SonarQube Cloud en verde en el PR.

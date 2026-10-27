@@ -16,8 +16,9 @@
 | Pruebas E2E por HTTP | ✅ ≥ 15 % | — | La app completa con su BD; flujo por actor/rol |
 | E2E con Playwright | — | ✅ | Pocas, solo flujos críticos, con la API simulada. No se miden en porcentaje (ver [Qué probar](../02-Testing/que-probar-back-y-front.md)) |
 | Auditoría de dependencias | ✅ | ✅ | Las **de producción**, sin vulnerabilidades **altas o críticas**. Las de desarrollo no llegan al servidor ni al navegador: las sube Dependabot |
-| SonarQube Cloud | ✅ | — | Quality Gate en verde sobre `main` (ver abajo) |
+| SonarQube Cloud | ✅ | — | Quality Gate en verde **en el PR** (ver abajo) |
 | Simulacro de promoción | ✅ | ✅ | Ver [Despliegue y CI/CD](despliegue-y-ambientes.md) |
+| Smoke test (después de desplegar) | ✅ | ✅ | Workflow `smoke.yml`, lo llama el despliegue (hoy se lanza a mano) |
 
 Los porcentajes son de **líneas cubiertas**. Cada nivel de prueba tiene su propio mínimo y su propio reporte (`coverage/unit`, `coverage/integration`, `coverage/e2e`).
 
@@ -39,6 +40,8 @@ La estructura del workflow es la misma en todos los repos: **instalar → audito
 **Workflows de referencia**, listos para copiar y cambiar solo los comandos:
 - Backend: `indigo-backend/.github/workflows/ci.yml` (con Postgres como servicio del job y SonarQube Cloud).
 - Frontend: `indigo-user-space/.github/workflows/ci.yml`.
+- E2E del front con Playwright: `indigo-user-space/playwright.config.ts` y la carpeta `e2e/` (InnLab Core y la API simuladas con `page.route`).
+- Smoke test: `.github/workflows/smoke.yml` en los dos (backend con `curl`, frontend con Playwright).
 - Simulacro de promoción: `.github/workflows/promocion.yml` en los dos.
 
 Si un repo usa otra tecnología, su página de [Stacks](../04-Stacks/README.md) dice cuál es el comando de cada paso. **Lo que no se puede es saltarse un paso.**
@@ -50,19 +53,22 @@ Si un repo usa otra tecnología, su página de [Stacks](../04-Stacks/README.md) 
 
 ## SonarQube Cloud (solo backends)
 
-Analiza bugs, vulnerabilidades, *security hotspots*, código duplicado y la cobertura del código nuevo. Se usa **solo en los backends** porque el plan gratuito con repos privados tiene dos límites:
+Analiza bugs, vulnerabilidades, *security hotspots*, código duplicado y la cobertura del código nuevo, **en cada PR**: si el Quality Gate no pasa, el check `sonarqube` queda en rojo y el PR no se fusiona.
 
-- **Tope de 50.000 líneas para toda la organización** `innlab2016`, no por repo. Reservarlo para los backends permite tener varios proyectos dentro del tope.
-- **Solo analiza la rama principal**, no los PR. Por eso el análisis corre cuando los cambios llegan a `main`, no antes del merge.
+Límites del plan gratuito con repos privados, y cómo se resuelven:
 
-Reglas:
-- Si el Quality Gate falla sobre `main`, se abre un `fix/` **ese mismo día**, antes de cualquier otro PR del repo.
-- Si se pasa a un plan pago o los repos se vuelven públicos, el análisis se mueve a los PR y bloquea el merge.
+- **Solo analiza la rama principal del proyecto en Sonar y los PR que van hacia ella.** Como todos los PR van a `dev`, en SonarQube Cloud la rama principal de cada proyecto es **`dev`** (no `main`). Los push a `main` no se analizan, y no hace falta: lo que llega a `main` ya pasó por el PR.
+- **Tope de 50.000 líneas para toda la organización** `innlab2016`, no por repo. Por eso se usa **solo en los backends**.
+- **Máximo 5 miembros** en la organización de SonarQube Cloud. Los demás ven el resultado en el check del PR.
+
+Si se pasa a un plan pago (Team) o los repos se vuelven públicos, se quitan los límites y se pueden sumar los frontends.
 
 **Activarlo en un backend (una vez):**
 1. En [sonarcloud.io](https://sonarcloud.io), con la cuenta de GitHub de la organización, importar el repo. La clave del proyecto es `innlab2016_<repo>` y va en `sonar-project.properties`.
-2. En el proyecto: *Administration › Analysis Method* → apagar *Automatic Analysis* (el análisis lo hace el CI, con la cobertura).
-3. Crear un token en *My Account › Security* y guardarlo como secreto del repo `SONAR_TOKEN` (*Settings › Secrets and variables › Actions*).
+2. En el proyecto: *Administration › Analysis Method* → apagar *Automatic Analysis*. El análisis lo hace el CI, con la cobertura de las pruebas; si queda encendido, el análisis del CI falla.
+3. En *Administration › Branches and Pull Requests*: renombrar la rama principal a **`dev`**.
+4. Crear el token: avatar (arriba a la derecha) › *My Account* › *Security* › *Generate Tokens* (nombre, por ejemplo `github-actions-<repo>`). Se copia en ese momento, porque después no se vuelve a mostrar.
+5. Guardarlo en GitHub como secreto del repo: *Settings* › *Secrets and variables* › *Actions* › *New repository secret*, con el nombre **`SONAR_TOKEN`**. Lo hace alguien con permisos de administración del repo; el token nunca se pega en el código ni en un chat.
 
 ## Sin protección de ramas (situación actual)
 

@@ -54,7 +54,8 @@ Esto es lo que **todo** backend y frontend debe tener, sea cual sea su tecnolog�
 | **Unitarias** | Cada service, guard, cliente externo y validación, aislado | 70 % |
 | **Integración** | Los services reales contra una **BD real temporal** (migraciones + seed); solo se simulan IA, Core y otros externos | 40 % |
 | **E2E por HTTP** | La app completa por HTTP, con tokens firmados por un Core simulado y la BD real, **un flujo por actor o rol** | 15 % |
-| **SonarQube Cloud** | Bugs, vulnerabilidades y código duplicado sobre `main` | Quality Gate en verde |
+| **SonarQube Cloud** | Bugs, vulnerabilidades, código duplicado y cobertura del código nuevo, en cada PR | Quality Gate en verde |
+| **Smoke test** | Después de cada despliegue: health checks y una ruta protegida en 401 | Debe pasar |
 | **Manual en staging** | Lo que dice el PR, probado por quien revisa | — |
 
 ### Frontend

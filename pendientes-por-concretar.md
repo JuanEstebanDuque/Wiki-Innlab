@@ -28,7 +28,7 @@ Hasta que se decidan, las reglas afectadas siguen marcadas como **(Propuesta)** 
 | 1.10 | Hooks de git (Husky + lint-staged + commitlint) | 🟢 | Adoptarlos en todos los repos | Formato de commits validado automáticamente | _Equipo_ |
 | 1.11 | ~~Cobertura en CI~~ ✅ **Decidido:** mínimos de 70 % unitarias (back y front), 40 % integración y 15 % E2E (back). Ver [Convenciones](02-Testing/convenciones.md#cobertura) | — | — | — | _Equipo_ |
 | 1.13 | **Plan de GitHub** para proteger ramas | 🟠 | El plan gratuito no protege ramas en repos privados: hoy es regla de equipo. Opciones: GitHub Team o repos públicos | Que el CI bloquee el merge por sí solo | _Líder InnLab_ |
-| 1.14 | **Plan de SonarQube Cloud** | 🟢 | Gratuito: 50.000 líneas para toda la organización y solo la rama principal, por eso solo backends. Con plan Team (o repos públicos) se analizan los PR y se puede sumar frontends | Quality Gate antes del merge | _Líder InnLab_ |
+| 1.14 | **Plan de SonarQube Cloud** | 🟢 | Gratuito: 50.000 líneas para toda la organización, 5 miembros y solo la rama principal y sus PR (por eso la rama principal en Sonar es `dev`, y solo se usa en backends). Con plan Team (o repos públicos) se pueden sumar los frontends | Sonar en más repos | _Líder InnLab_ |
 | 1.12 | Versión mínima de Node y `.editorconfig` | 🟢 | Node 20 LTS o superior; UTF-8, LF, 2 espacios | Entornos iguales en todas las máquinas | _Equipo_ |
 
 ---
