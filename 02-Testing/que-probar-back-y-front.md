@@ -43,9 +43,32 @@
 
 **No se prueba en frontend con tests automáticos:** componentes puramente visuales, estilos, maquetado ni animaciones. Van como **prueba manual en el PR**, con capturas de escritorio y móvil si aplica.
 
-## End-to-end (más adelante)
+## Pruebas obligatorias por tipo de repo
 
-Cuando exista CI, se agregan **pocos** e2e, solo de los flujos críticos que cruzan front y back. Por ejemplo: hub de Core → SSO → entrar al producto → acción principal (crear un diagnóstico, ver un informe). No se usan para cubrir lo que ya cubren las pruebas unitarias.
+Esto es lo que **todo** backend y frontend debe tener, sea cual sea su tecnología. Los mínimos de cobertura y cómo se corren en el CI están en [CI y calidad](../01-Estandares/ci-y-calidad.md).
+
+### Backend
+
+| Nivel | Qué prueba | Mínimo de líneas cubiertas |
+| --- | --- | --- |
+| **Unitarias** | Cada service, guard, cliente externo y validación, aislado | 70 % |
+| **Integración** | Los services reales contra una **BD real temporal** (migraciones + seed); solo se simulan IA, Core y otros externos | 40 % |
+| **E2E por HTTP** | La app completa por HTTP, con tokens firmados por un Core simulado y la BD real, **un flujo por actor o rol** | 15 % |
+| **SonarQube Cloud** | Bugs, vulnerabilidades y código duplicado sobre `main` | Quality Gate en verde |
+| **Manual en staging** | Lo que dice el PR, probado por quien revisa | — |
+
+### Frontend
+
+| Nivel | Qué prueba | Mínimo |
+| --- | --- | --- |
+| **Unitarias y de componentes** | Composables/hooks, `services/`, formularios, wizards, guardas de ruta y renderizado por rol (tabla de arriba) | 70 % de líneas |
+| **E2E con Playwright** | **Pocos** flujos críticos de punta a punta en el navegador, con el build de producción y la **API simulada** (no depende de un backend corriendo). Por ejemplo: recepción del SSO → panel principal → acción principal del producto | Sin porcentaje: un test por flujo crítico |
+| **Smoke test con Playwright** | Después de cada despliegue (staging y producción): la app carga, no hay errores en consola y el `GET /health` del backend responde | Debe pasar; si falla en producción se evalúa el rollback |
+| **Manual** | Todo lo visual (estilos, maquetado, responsive) y lo que dice el PR, probado en staging por quien revisa | Capturas de escritorio y móvil en el PR |
+
+**Por qué Playwright no se mide en porcentaje:** la cobertura de líneas la dan las pruebas unitarias. Las E2E son pocas y más lentas, pero cada una recorre un flujo completo (pantalla + rutas + API), que es justo lo que las unitarias no ven. Se reservan para lo que, si se rompe, deja al usuario sin poder trabajar.
+
+**Dónde corren:** todo corre en GitHub Actions (Playwright usa un navegador sin interfaz dentro del runner). No se necesita un servidor propio.
 
 ## Ver también
 

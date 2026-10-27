@@ -16,7 +16,10 @@ Archivo: `.github/pull_request_template.md`
 <!-- Contexto o problema que resuelve -->
 
 ## Cómo se probó
-<!-- Tests agregados, pasos manuales, capturas -->
+<!-- Tests agregados y pasos manuales. En frontend, capturas de escritorio y móvil si hay cambio visual -->
+
+## Cómo validarlo en staging
+<!-- Pasos para que quien revisa pruebe en staging todo lo que dice "Qué cambia" -->
 
 ## Issue
 Fixes #
@@ -26,9 +29,13 @@ Fixes #
 
 ## Checklist
 - [ ] Corre en local y pasa lint + tests + build
-- [ ] Tests para la lógica nueva o modificada
+- [ ] Tests para la lógica nueva o modificada, sin bajar la cobertura mínima
+- [ ] CI en verde (hoy no hay protección de ramas: lo comprueba quien revisa)
+- [ ] Versión subida y entrada en `CHANGELOG.md`
 - [ ] Sin secretos, datos personales ni URLs hardcodeadas
 - [ ] README / .env.example / wiki actualizados si aplica
+- [ ] **Validado en staging por quien revisa** (cuando exista el ambiente)
+- [ ] Backend: después del merge, Quality Gate de SonarQube Cloud en verde sobre `main`
 ```
 
 ## Issue

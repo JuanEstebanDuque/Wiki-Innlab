@@ -18,15 +18,17 @@ Hasta que se decidan, las reglas afectadas siguen marcadas como **(Propuesta)** 
 | --- | --- | --- | --- | --- | --- |
 | 1.1 | **Plataforma de despliegue** | 🔴 | Servidores de la universidad (Docker o PaaS auto-hospedado), AWS o PaaS gestionado | Ambientes, URLs, CI/CD, despliegue de Índigo | _Equipo (en investigación)_ |
 | 1.2 | **Base de datos estándar** | 🔴 | Servidores de la universidad. Falta definir el motor (hoy PostgreSQL en Core y Foresight, Supabase en Growinn e Índigo sin definir) | Migración de datos, BD de Índigo, `.env` de todos los backends | _Equipo (en investigación)_ |
-| 1.3 | **Herramienta de CI/CD** | 🔴 | GitHub Actions, Jenkins, o Actions con runner en la universidad (recomendada) | Verificación automática de PRs (lint, test, build) y despliegues | _Equipo_ |
-| 1.4 | ¿Existe ambiente de **staging**? | 🟠 | Staging desde `dev` | Flujo `dev` → staging → `main` → producción | Depende de 1.1 |
+| 1.3 | ~~Herramienta de CI/CD~~ ✅ **Decidido:** GitHub Actions con los runners de GitHub (sin servidor propio). Ver [CI y calidad](01-Estandares/ci-y-calidad.md) | — | — | — | _Equipo_ |
+| 1.4 | ~~¿Existe ambiente de staging?~~ ✅ **Decidido:** sí; se despliega la rama de cada PR, quien revisa lo valida a mano y al fusionar pasa solo a producción (rollback solo en producción). Ver [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md). Falta montarlo (depende de 1.1) | 🟠 | — | — | Depende de 1.1 |
 | 1.5 | **¿Se mantiene `.env.example`?** | 🟠 | Propuesta: sí (solo nombres de variables, sin valores) | Onboarding, plantilla de README | _Líder InnLab_ |
 | 1.6 | Primera versión con el estándar | 🟠 | `0.1.0` en todos; Core y Foresight evalúan `1.0.0` | Primeros tags y CHANGELOG | _Líderes de proyecto_ |
 | 1.7 | Número de issue obligatorio en el nombre de la rama | 🟢 | `feat/42-descripcion`, obligatorio en `feat` y `fix` | Trazabilidad issue → rama → PR | _Equipo_ |
 | 1.8 | Estrategia de merge | 🟢 | Squash a `dev`, merge commit en los releases | Historial limpio, CHANGELOG | _Equipo_ |
 | 1.9 | Términos de dominio en español en el código | 🟢 | Permitirlos si están en el glosario, o traducirlos (`diagnosticador`, `macro_categorias`) | Nomenclatura de Índigo | _Equipo de Índigo_ |
 | 1.10 | Hooks de git (Husky + lint-staged + commitlint) | 🟢 | Adoptarlos en todos los repos | Formato de commits validado automáticamente | _Equipo_ |
-| 1.11 | Cobertura en CI | 🟢 | Un PR no puede bajar la cobertura del repo | Regla de merge | Depende de 1.3 |
+| 1.11 | ~~Cobertura en CI~~ ✅ **Decidido:** mínimos de 70 % unitarias (back y front), 40 % integración y 15 % E2E (back). Ver [Convenciones](02-Testing/convenciones.md#cobertura) | — | — | — | _Equipo_ |
+| 1.13 | **Plan de GitHub** para proteger ramas | 🟠 | El plan gratuito no protege ramas en repos privados: hoy es regla de equipo. Opciones: GitHub Team o repos públicos | Que el CI bloquee el merge por sí solo | _Líder InnLab_ |
+| 1.14 | **Plan de SonarQube Cloud** | 🟢 | Gratuito: 50.000 líneas para toda la organización y solo la rama principal, por eso solo backends. Con plan Team (o repos públicos) se analizan los PR y se puede sumar frontends | Quality Gate antes del merge | _Líder InnLab_ |
 | 1.12 | Versión mínima de Node y `.editorconfig` | 🟢 | Node 20 LTS o superior; UTF-8, LF, 2 espacios | Entornos iguales en todas las máquinas | _Equipo_ |
 
 ---
@@ -69,7 +71,10 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 
 - [ ] README corto con enlace a su página en Notion ([plantilla](06-Referencia/plantillas.md))
 - [ ] `.gitignore` mínimo: `.env` y archivos de asistentes de IA ([Seguridad](01-Estandares/seguridad-y-accesos.md))
-- [ ] Ramas `main` y `dev`, protegidas (sin push directo, PR con 1 aprobación)
+- [ ] Ramas `main` y `dev`, protegidas cuando el plan lo permita (1.13); mientras tanto, la regla de equipo de [CI y calidad](01-Estandares/ci-y-calidad.md)
+- [ ] CI con GitHub Actions según [CI y calidad](01-Estandares/ci-y-calidad.md): lint sin advertencias, build, pruebas con cobertura mínima, auditoría y simulacro de promoción (`indigo-backend` e `indigo-user-space` sirven de plantilla)
+- [ ] Versiones fijadas y `dependabot.yml` ([Dependencias](01-Estandares/dependencias-y-herramientas.md#versiones-fijadas))
+- [ ] Backends: SonarQube Cloud activado con el secreto `SONAR_TOKEN`
 - [ ] Activar *Automatically delete head branches* y limpiar las ramas fuera del estándar
 - [ ] `.github/pull_request_template.md` y plantillas de issue
 - [ ] Scripts estándar: `dev`, `build`, `lint`, `format`, `test`
@@ -105,4 +110,4 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 | 5.5 | **Socializar con los equipos**: hoy no conocen las reglas (por ejemplo, `feat/`) | ⏳ |
 | 5.6 | Reemplazar los documentos anteriores por un enlace a la wiki: `InnLab Project.md`, `Foresight/PROJECT_STANDARDS.md`, los `CONTRIBUTING.md` de Foresight y `GitHubWorkflowGuide.md` de Growinn | ⏳ |
 | 5.7 | Definir quién mantiene cada sección de la wiki (Core: equipo de Core; cada proyecto: su líder técnico) | ⏳ |
-| 5.8 | Cuando se cierren 1.1–1.3: escribir los ADRs y actualizar [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md) | ⏳ |
+| 5.8 | Cuando se cierre 1.1: escribir el ADR, reemplazar el simulacro de promoción por el despliegue real y actualizar [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md) | ⏳ |

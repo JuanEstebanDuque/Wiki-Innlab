@@ -8,7 +8,7 @@
 
 | Rama | Rol | Quién escribe en ella |
 | --- | --- | --- |
-| `main` | Lo que está en producción | Solo merges desde `dev` (release) o desde `hotfix/*` |
+| `main` | Lo que está en producción | Solo la promoción automática desde `dev` y los PR de `hotfix/*` |
 | `dev` | Integración: lo siguiente que va a salir | Solo merges de PRs de ramas de trabajo |
 
 - **Todo repo tiene exactamente estas dos ramas desde su creación:** `main` (nunca `master`) y `dev`. Al crear un repo, lo primero es crear `dev` a partir de `main` y protegerlas.
@@ -23,7 +23,8 @@
 | product-integration-guide | Crear `dev` |
 | foresight-scrapping | Crear `dev` |
 | -Growinn-index-test | Crear `dev` (se mantiene tal cual, pero la regla aplica si recibe cambios) |
-- Las dos ramas están **protegidas** en GitHub: no se permite push directo, se exige PR con al menos 1 aprobación y (cuando exista CI) checks en verde.
+- Las dos ramas deben estar **protegidas** en GitHub: sin push directo, PR con al menos 1 aprobación y checks del CI en verde. **Hoy no se puede** (el plan gratuito de GitHub no protege ramas en repos privados), así que se cumple como regla de equipo: ver [CI y calidad › Sin protección de ramas](ci-y-calidad.md#sin-protección-de-ramas-situación-actual).
+- **Ningún PR de trabajo va directo a `main`**: si algo entra a `main` sin pasar por `dev`, la promoción choca (el simulacro lo detecta).
 
 ## Ramas de trabajo
 

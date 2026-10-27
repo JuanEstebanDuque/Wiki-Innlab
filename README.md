@@ -55,8 +55,9 @@ InnLab (lo mínimo)
 | [Idioma y nomenclatura](01-Estandares/idioma-y-nomenclatura.md) | Qué va en inglés o en español; cómo nombrar archivos, clases, tablas y variables |
 | [Seguridad, secretos y accesos](01-Estandares/seguridad-y-accesos.md) | `.env`, qué hacer si se filtra una key, dueños de cada cuenta |
 | [Documentación](01-Estandares/documentacion.md) | Wiki como fuente de verdad, README corto, ADRs |
-| [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md) | Principios de ambientes y pipeline (plataforma en definición) |
-| [Dependencias y herramientas](01-Estandares/dependencias-y-herramientas.md) | Lockfile, lint, formato y dependencias nuevas, sin imponer herramienta |
+| [CI y calidad](01-Estandares/ci-y-calidad.md) | Checks de cada PR, cobertura mínima, SonarQube en backends y qué hacer sin protección de ramas |
+| [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md) | PR → staging con validación manual → producción automática; rollback solo en producción |
+| [Dependencias y herramientas](01-Estandares/dependencias-y-herramientas.md) | Versiones exactas, lockfile, Dependabot, lint y formato, sin imponer herramienta |
 | [Definition of Done](01-Estandares/definition-of-done.md) | Cuándo una tarea está terminada de verdad |
 | [Onboarding](01-Estandares/onboarding.md) | Tu primer día y tu primer PR |
 
@@ -104,6 +105,9 @@ Catálogo completo: [05-Proyectos](05-Proyectos/README.md)
 | Cómo escribir el mensaje de commit | [Commits](01-Estandares/commits.md) |
 | Qué poner en el PR | [Issues y Pull Requests](01-Estandares/issues-y-pull-requests.md) |
 | Dónde van los tests y cómo se llaman | [Testing → Convenciones](02-Testing/convenciones.md) |
+| Qué pruebas y qué cobertura debe tener mi repo | [Qué probar](02-Testing/que-probar-back-y-front.md#pruebas-obligatorias-por-tipo-de-repo) y [CI y calidad](01-Estandares/ci-y-calidad.md) |
+| Cómo armo el CI de un repo nuevo | [CI y calidad](01-Estandares/ci-y-calidad.md#qué-cambia-según-la-tecnología) |
+| Qué hago antes de aprobar un PR | [Issues y Pull Requests → Checklist del revisor](01-Estandares/issues-y-pull-requests.md#checklist-del-revisor) |
 | Cómo conecto mi producto al login de InnLab | [Integrar un producto](03-InnLab-Core/integrar-un-producto.md) |
 | Qué endpoints de Core puedo usar | [API interna](03-InnLab-Core/api-interna.md) |
 | Cómo crear un módulo en NestJS | [NestJS](04-Stacks/nestjs.md) |
