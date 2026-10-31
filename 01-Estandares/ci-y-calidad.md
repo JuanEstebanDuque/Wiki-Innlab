@@ -69,6 +69,7 @@ Si se pasa a un plan pago (Team) o los repos se vuelven públicos, se quitan los
 3. En *Administration › Branches and Pull Requests*: renombrar la rama principal a **`dev`**.
 4. Crear el token: avatar (arriba a la derecha) › *My Account* › *Security* › *Generate Tokens* (nombre, por ejemplo `github-actions-<repo>`). Se copia en ese momento, porque después no se vuelve a mostrar.
 5. Guardarlo en GitHub como secreto del repo: *Settings* › *Secrets and variables* › *Actions* › *New repository secret*, con el nombre **`SONAR_TOKEN`**. Lo hace alguien con permisos de administración del repo; el token nunca se pega en el código ni en un chat.
+6. Guardar el mismo token también en *Settings* › *Secrets and variables* › ***Dependabot***, con el nombre `SONAR_TOKEN`. Los PRs que abre Dependabot no reciben los secretos normales del repo; sin esto, su check `sonarqube` falla.
 
 ## Sin protección de ramas (situación actual)
 

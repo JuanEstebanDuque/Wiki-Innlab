@@ -43,9 +43,9 @@ Hasta que se decidan, las reglas afectadas siguen marcadas como **(Propuesta)** 
 | 2.4 | **Dueño de cada cuenta o servicio** (GitHub, AWS, BD, APIs externas…) | [Seguridad y accesos](01-Estandares/seguridad-y-accesos.md) | Nivel interno |
 | 2.5 | **Qué son Ucorp y diag-irl**: quién los lleva y dónde están sus repos | [Proyectos](05-Proyectos/README.md), [API interna](03-InnLab-Core/api-interna.md) | Equipo de Core |
 | 2.6 | Cómo llegan los datos de `foresight-scrapping` a la BD de Foresight (¿manual, script?) | [Foresight](05-Proyectos/foresight/README.md) | Equipo de Foresight |
-| 2.7 | Índigo: qué BD usa hoy (Postgres local o Supabase) y qué proveedor de LLM (OpenRouter o Anthropic directo) | [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | Equipo de Índigo |
+| 2.7 | ~~Índigo: qué BD usa y qué proveedor de LLM~~ ✅ PostgreSQL con migraciones; IA con Groq, Gemini y OpenRouter en cadena de respaldo | [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | — |
 | 2.8 | Plan y fechas del **reemplazo de Growinn por Índigo** | [Growinn](05-Proyectos/growinn-index/README.md), [Índigo](05-Proyectos/indigo/README.md) | Líder de InnLab / Índigo |
-| 2.9 | Slug y key interna de **Índigo** en Core | [Integrar un producto](03-InnLab-Core/integrar-un-producto.md) | Equipo de Core |
+| 2.9 | ~~Slug y key interna de Índigo en Core~~ ✅ Índigo ya se autentica con Core | [Integrar un producto](03-InnLab-Core/integrar-un-producto.md) | — |
 
 ---
 
@@ -89,8 +89,8 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 | [foresight-backend](05-Proyectos/foresight/foresight-backend.md) | **Revisar `getReportPreview`: endpoint público sin verificación de usuario** · sacar `.claude/` del repo · README dice Keycloak (es Cognito) · cero tests · reactivar reglas de ESLint · limpiar ramas | 🔴 |
 | [foresight-scrapping](05-Proyectos/foresight/foresight-scrapping.md) | **Rotar la key de SerpAPI expuesta** (la rota el dueño) y sacar credenciales y correos personales de los notebooks · README, `.gitignore`, `requirements.txt` · crear `dev` · renombrar notebooks | 🔴 |
 | [foresight-landing](05-Proyectos/foresight/foresight-landing.md) | **Declarar `react-router-dom` en `package.json`** (un `npm install` limpio falla) · sincronizar `main` con `dev` · borrar stubs vacíos y carpetas duplicadas | 🔴 |
-| [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | **Integrar autenticación con InnLab Core** · sacar `.claude/` y `docs/superpowers/` del repo · `master` → `main` · unificar la documentación con el código · `.env.example` · migraciones · oxlint → ESLint | 🔴 |
-| [indigo-user-space](05-Proyectos/indigo/indigo-user-space.md) | Primer commit en `main` y crear `dev` · recepción del SSO de Core · scripts `lint` y `test` · estructura por feature · README corto | 🟠 |
+| [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | Alineado con el estándar (auth con Core, migraciones, ESLint, CI con SonarQube, Swagger). Queda: decidir el prefijo `/api` | 🟢 |
+| [indigo-user-space](05-Proyectos/indigo/indigo-user-space.md) | Alineado con el estándar (SSO de Core, CI con Playwright). Queda: **conectar el portal empresa al backend** (hoy usa datos de ejemplo) | 🟠 |
 | [innlab-core-api](03-InnLab-Core/innlab-core-api.md) | README real · `.env.example` · CORS desde variable de entorno · `logging: true` solo en desarrollo · tests de guards y SSO · Swagger · limpiar ramas | 🟠 |
 | [innlab-core-user-space](03-InnLab-Core/innlab-core-user-space.md) | Crear `dev` · README real · `.env.example` · URLs de productos a variables de entorno · tests | 🟠 |
 | [product-integration-guide](03-InnLab-Core/product-integration-guide.md) | Crear `dev` · `GUIDE.md` que enlace a la wiki · tests de `/health` y del guard | 🟢 |

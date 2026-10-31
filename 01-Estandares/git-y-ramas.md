@@ -17,8 +17,6 @@
 
 | Repo | Falta |
 | --- | --- |
-| indigo-backend | Renombrar `master` → `main` |
-| indigo-user-space | Primer commit en `main` y crear `dev` |
 | innlab-core-user-space | Crear `dev` |
 | product-integration-guide | Crear `dev` |
 | foresight-scrapping | Crear `dev` |
