@@ -18,15 +18,17 @@ Hasta que se decidan, las reglas afectadas siguen marcadas como **(Propuesta)** 
 | --- | --- | --- | --- | --- | --- |
 | 1.1 | **Plataforma de despliegue** | 🔴 | Servidores de la universidad (Docker o PaaS auto-hospedado), AWS o PaaS gestionado | Ambientes, URLs, CI/CD, despliegue de Índigo | _Equipo (en investigación)_ |
 | 1.2 | **Base de datos estándar** | 🔴 | Servidores de la universidad. Falta definir el motor (hoy PostgreSQL en Core y Foresight, Supabase en Growinn e Índigo sin definir) | Migración de datos, BD de Índigo, `.env` de todos los backends | _Equipo (en investigación)_ |
-| 1.3 | **Herramienta de CI/CD** | 🔴 | GitHub Actions, Jenkins, o Actions con runner en la universidad (recomendada) | Verificación automática de PRs (lint, test, build) y despliegues | _Equipo_ |
-| 1.4 | ¿Existe ambiente de **staging**? | 🟠 | Staging desde `dev` | Flujo `dev` → staging → `main` → producción | Depende de 1.1 |
+| 1.3 | ~~Herramienta de CI/CD~~ ✅ **Decidido:** GitHub Actions con los runners de GitHub (sin servidor propio). Ver [CI y calidad](01-Estandares/ci-y-calidad.md) | — | — | — | _Equipo_ |
+| 1.4 | ~~¿Existe ambiente de staging?~~ ✅ **Decidido:** sí; se despliega la rama de cada PR, quien revisa lo valida a mano y al fusionar pasa solo a producción (rollback solo en producción). Ver [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md). Falta montarlo (depende de 1.1) | 🟠 | — | — | Depende de 1.1 |
 | 1.5 | **¿Se mantiene `.env.example`?** | 🟠 | Propuesta: sí (solo nombres de variables, sin valores) | Onboarding, plantilla de README | _Líder InnLab_ |
 | 1.6 | Primera versión con el estándar | 🟠 | `0.1.0` en todos; Core y Foresight evalúan `1.0.0` | Primeros tags y CHANGELOG | _Líderes de proyecto_ |
 | 1.7 | Número de issue obligatorio en el nombre de la rama | 🟢 | `feat/42-descripcion`, obligatorio en `feat` y `fix` | Trazabilidad issue → rama → PR | _Equipo_ |
 | 1.8 | Estrategia de merge | 🟢 | Squash a `dev`, merge commit en los releases | Historial limpio, CHANGELOG | _Equipo_ |
 | 1.9 | Términos de dominio en español en el código | 🟢 | Permitirlos si están en el glosario, o traducirlos (`diagnosticador`, `macro_categorias`) | Nomenclatura de Índigo | _Equipo de Índigo_ |
 | 1.10 | Hooks de git (Husky + lint-staged + commitlint) | 🟢 | Adoptarlos en todos los repos | Formato de commits validado automáticamente | _Equipo_ |
-| 1.11 | Cobertura en CI | 🟢 | Un PR no puede bajar la cobertura del repo | Regla de merge | Depende de 1.3 |
+| 1.11 | ~~Cobertura en CI~~ ✅ **Decidido:** mínimos de 70 % unitarias (back y front), 40 % integración y 15 % E2E (back). Ver [Convenciones](02-Testing/convenciones.md#cobertura) | — | — | — | _Equipo_ |
+| 1.13 | **Plan de GitHub** para proteger ramas | 🟠 | El plan gratuito no protege ramas en repos privados: hoy es regla de equipo. Opciones: GitHub Team o repos públicos | Que el CI bloquee el merge por sí solo | _Líder InnLab_ |
+| 1.14 | **Plan de SonarQube Cloud** | 🟢 | Gratuito: 50.000 líneas para toda la organización, 5 miembros y solo la rama principal y sus PR (por eso la rama principal en Sonar es `dev`, y solo se usa en backends). Con plan Team (o repos públicos) se pueden sumar los frontends | Sonar en más repos | _Líder InnLab_ |
 | 1.12 | Versión mínima de Node y `.editorconfig` | 🟢 | Node 20 LTS o superior; UTF-8, LF, 2 espacios | Entornos iguales en todas las máquinas | _Equipo_ |
 
 ---
@@ -41,9 +43,9 @@ Hasta que se decidan, las reglas afectadas siguen marcadas como **(Propuesta)** 
 | 2.4 | **Dueño de cada cuenta o servicio** (GitHub, AWS, BD, APIs externas…) | [Seguridad y accesos](01-Estandares/seguridad-y-accesos.md) | Nivel interno |
 | 2.5 | **Qué son Ucorp y diag-irl**: quién los lleva y dónde están sus repos | [Proyectos](05-Proyectos/README.md), [API interna](03-InnLab-Core/api-interna.md) | Equipo de Core |
 | 2.6 | Cómo llegan los datos de `foresight-scrapping` a la BD de Foresight (¿manual, script?) | [Foresight](05-Proyectos/foresight/README.md) | Equipo de Foresight |
-| 2.7 | Índigo: qué BD usa hoy (Postgres local o Supabase) y qué proveedor de LLM (OpenRouter o Anthropic directo) | [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | Equipo de Índigo |
+| 2.7 | ~~Índigo: qué BD usa y qué proveedor de LLM~~ ✅ PostgreSQL con migraciones; IA con Groq, Gemini y OpenRouter en cadena de respaldo | [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | — |
 | 2.8 | Plan y fechas del **reemplazo de Growinn por Índigo** | [Growinn](05-Proyectos/growinn-index/README.md), [Índigo](05-Proyectos/indigo/README.md) | Líder de InnLab / Índigo |
-| 2.9 | Slug y key interna de **Índigo** en Core | [Integrar un producto](03-InnLab-Core/integrar-un-producto.md) | Equipo de Core |
+| 2.9 | ~~Slug y key interna de Índigo en Core~~ ✅ Índigo ya se autentica con Core | [Integrar un producto](03-InnLab-Core/integrar-un-producto.md) | — |
 
 ---
 
@@ -69,7 +71,10 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 
 - [ ] README corto con enlace a su página en Notion ([plantilla](06-Referencia/plantillas.md))
 - [ ] `.gitignore` mínimo: `.env` y archivos de asistentes de IA ([Seguridad](01-Estandares/seguridad-y-accesos.md))
-- [ ] Ramas `main` y `dev`, protegidas (sin push directo, PR con 1 aprobación)
+- [ ] Ramas `main` y `dev`, protegidas cuando el plan lo permita (1.13); mientras tanto, la regla de equipo de [CI y calidad](01-Estandares/ci-y-calidad.md)
+- [ ] CI con GitHub Actions según [CI y calidad](01-Estandares/ci-y-calidad.md): lint sin advertencias, build, pruebas con cobertura mínima, auditoría y simulacro de promoción (`indigo-backend` e `indigo-user-space` sirven de plantilla)
+- [ ] Versiones fijadas y `dependabot.yml` ([Dependencias](01-Estandares/dependencias-y-herramientas.md#versiones-fijadas))
+- [ ] Backends: SonarQube Cloud activado con el secreto `SONAR_TOKEN`
 - [ ] Activar *Automatically delete head branches* y limpiar las ramas fuera del estándar
 - [ ] `.github/pull_request_template.md` y plantillas de issue
 - [ ] Scripts estándar: `dev`, `build`, `lint`, `format`, `test`
@@ -84,8 +89,8 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 | [foresight-backend](05-Proyectos/foresight/foresight-backend.md) | **Revisar `getReportPreview`: endpoint público sin verificación de usuario** · sacar `.claude/` del repo · README dice Keycloak (es Cognito) · cero tests · reactivar reglas de ESLint · limpiar ramas | 🔴 |
 | [foresight-scrapping](05-Proyectos/foresight/foresight-scrapping.md) | **Rotar la key de SerpAPI expuesta** (la rota el dueño) y sacar credenciales y correos personales de los notebooks · README, `.gitignore`, `requirements.txt` · crear `dev` · renombrar notebooks | 🔴 |
 | [foresight-landing](05-Proyectos/foresight/foresight-landing.md) | **Declarar `react-router-dom` en `package.json`** (un `npm install` limpio falla) · sincronizar `main` con `dev` · borrar stubs vacíos y carpetas duplicadas | 🔴 |
-| [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | **Integrar autenticación con InnLab Core** · sacar `.claude/` y `docs/superpowers/` del repo · `master` → `main` · unificar la documentación con el código · `.env.example` · migraciones · oxlint → ESLint | 🔴 |
-| [indigo-user-space](05-Proyectos/indigo/indigo-user-space.md) | Primer commit en `main` y crear `dev` · recepción del SSO de Core · scripts `lint` y `test` · estructura por feature · README corto | 🟠 |
+| [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | Alineado con el estándar (auth con Core, migraciones, ESLint, CI con SonarQube, Swagger). Queda: decidir el prefijo `/api` | 🟢 |
+| [indigo-user-space](05-Proyectos/indigo/indigo-user-space.md) | Alineado con el estándar (SSO de Core, CI con Playwright). Queda: **conectar el portal empresa al backend** (hoy usa datos de ejemplo) | 🟠 |
 | [innlab-core-api](03-InnLab-Core/innlab-core-api.md) | README real · `.env.example` · CORS desde variable de entorno · `logging: true` solo en desarrollo · tests de guards y SSO · Swagger · limpiar ramas | 🟠 |
 | [innlab-core-user-space](03-InnLab-Core/innlab-core-user-space.md) | Crear `dev` · README real · `.env.example` · URLs de productos a variables de entorno · tests | 🟠 |
 | [product-integration-guide](03-InnLab-Core/product-integration-guide.md) | Crear `dev` · `GUIDE.md` que enlace a la wiki · tests de `/health` y del guard | 🟢 |
@@ -105,4 +110,4 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 | 5.5 | **Socializar con los equipos**: hoy no conocen las reglas (por ejemplo, `feat/`) | ⏳ |
 | 5.6 | Reemplazar los documentos anteriores por un enlace a la wiki: `InnLab Project.md`, `Foresight/PROJECT_STANDARDS.md`, los `CONTRIBUTING.md` de Foresight y `GitHubWorkflowGuide.md` de Growinn | ⏳ |
 | 5.7 | Definir quién mantiene cada sección de la wiki (Core: equipo de Core; cada proyecto: su líder técnico) | ⏳ |
-| 5.8 | Cuando se cierren 1.1–1.3: escribir los ADRs y actualizar [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md) | ⏳ |
+| 5.8 | Cuando se cierre 1.1: escribir el ADR, reemplazar el simulacro de promoción por el despliegue real y actualizar [Despliegue y CI/CD](01-Estandares/despliegue-y-ambientes.md) | ⏳ |

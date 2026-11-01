@@ -2,7 +2,7 @@
 
 📍 [InnLab](../README.md) › [Estándares](README.md) › **Versionado y releases**
 
-> **Resumen:** cada repo tiene su propia versión con formato [SemVer](https://semver.org/lang/es/) `MAJOR.MINOR.PATCH`. Un release es un PR de `dev` a `main`. Tras el merge se etiqueta `vX.Y.Z` en `main` y se registra en `CHANGELOG.md`. El número de la versión sale del tipo de commits que entraron desde el último release.
+> **Resumen:** cada repo tiene su propia versión con formato [SemVer](https://semver.org/lang/es/) `MAJOR.MINOR.PATCH`. **Cada PR que se fusiona es un release:** trae su versión subida y su entrada en `CHANGELOG.md`, y al fusionarlo la promoción automática lleva `dev` a `main`, despliega a producción y etiqueta `vX.Y.Z`. El número sale del tipo de cambio (tabla de abajo).
 
 ## Qué significa cada número
 
@@ -42,19 +42,23 @@
 
 ## Cómo se hace un release
 
-1. En `dev` está todo lo que va a salir, probado en staging (cuando exista).
-2. Se decide el número mirando los commits desde el último tag (tabla de arriba).
-3. Se abre un PR `dev` → `main` titulado **`release: vX.Y.Z`**, que:
+Con el flujo de [Despliegue y CI/CD](despliegue-y-ambientes.md), cada cambio validado en staging sale a producción al fusionarlo. Por eso **el release va dentro del propio PR**:
+
+1. El autor decide el número según la tabla de arriba y, en el mismo PR:
    - actualiza `"version"` en `package.json` (o su equivalente),
    - agrega la entrada en `CHANGELOG.md`.
-4. Se hace merge con **merge commit** (no squash).
-5. Se crea el tag sobre `main` y se publica el Release en GitHub con las notas del CHANGELOG:
-   ```bash
-   git checkout main && git pull
-   git tag v0.4.0
-   git push origin v0.4.0
-   ```
-6. Se despliega a producción desde ese tag (cuando exista el pipeline).
+2. Quien revisa valida el cambio en staging y lo fusiona a `dev` (squash).
+3. **Automático:** la promoción une `dev` en `main` con **merge commit**, despliega a producción, crea el tag `vX.Y.Z` con la versión del `package.json` y publica el Release en GitHub con las notas del CHANGELOG.
+4. Si producción falla, el rollback vuelve a desplegar el tag anterior (solo en producción).
+
+**Hoy**, sin plataforma de despliegue, el paso 3 es el **simulacro de promoción**: no publica ni etiqueta. Hasta que exista la promoción real, la unión `dev` → `main` y el tag se hacen a mano:
+```bash
+git checkout main && git pull
+git merge --no-ff origin/dev
+git push origin main
+git tag v0.4.0
+git push origin v0.4.0
+```
 
 ### Hotfix
 

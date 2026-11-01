@@ -13,10 +13,10 @@
 | Estado | 🟡 En desarrollo (inicio en sep-2026) |
 | Repos | [indigo-backend](indigo-backend.md) · [indigo-user-space](indigo-user-space.md) |
 | Stack | Backend [NestJS](../../04-Stacks/nestjs.md) 12 · Frontend **[Vue 3 + Vite](../../04-Stacks/vue-vite.md)** + TypeScript |
-| Auth | **InnLab Core (obligatorio)**, pendiente de integrar. Ver [Integrar un producto](../../03-InnLab-Core/integrar-un-producto.md) |
-| Datos | PostgreSQL / Supabase: por aclarar. La base pasará al estándar institucional (en definición) |
-| IA | OpenRouter (Claude 3.5 Haiku, con Gemini 2.5 Flash de respaldo) |
-| Despliegue | Aún no desplegado; lo estará pronto con el nuevo estándar |
+| Auth | **InnLab Core**, integrado en el backend (guard JWT) y en el frontend (SSO). Ver [Integrar un producto](../../03-InnLab-Core/integrar-un-producto.md) |
+| Datos | PostgreSQL con migraciones versionadas. La base pasará al estándar institucional (en definición) |
+| IA | Cadena de respaldo entre Groq, Gemini y OpenRouter (basta con una key) |
+| Despliegue | Aún no desplegado (plataforma en definición). CI completo en los dos repos, con el simulacro de promoción |
 | Responsable | _por definir_ |
 
 ## Arquitectura
@@ -27,8 +27,10 @@ flowchart LR
   IUS --> IB[indigo-backend]
   IB -->|búsqueda web| TAV[Tavily]
   IB -->|papers + fulltext| OA[OpenAlex]
-  IB -->|3 llamadas encadenadas| LLM[OpenRouter → Claude / Gemini]
-  IB --> DB[(PostgreSQL / Supabase)]
+  IB -->|3 llamadas encadenadas| LLM[Groq / Gemini / OpenRouter]
+  IB --> DB[(PostgreSQL)]
+  IUS -->|SSO| CORE[InnLab Core]
+  IB -->|JWT + API interna| CORE
 ```
 
 **Pipeline** (lineal, sin agentes): búsqueda en paralelo → enriquecimiento de papers → el profesor revisa las fuentes → macros → categorías → ítems (cada paso validado con Zod) → persistencia.
@@ -46,5 +48,5 @@ flowchart LR
 
 ## Repos
 
-- **[indigo-backend](indigo-backend.md)**: API NestJS con el pipeline del diagnosticador. Es el único repo con tests reales.
-- **[indigo-user-space](indigo-user-space.md)**: frontend en Vue 3 + Vite + TypeScript (base creada, sin commits todavía).
+- **[indigo-backend](indigo-backend.md)**: API NestJS (diagnosticador, aplicaciones, portal comercial y portal empresa), con Swagger y SonarQube Cloud. **Repo de referencia de backend.**
+- **[indigo-user-space](indigo-user-space.md)**: frontend en Vue 3 + Vite + TypeScript (portal profesor y portal empresa), con Playwright. **Repo de referencia de frontend.**

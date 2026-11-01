@@ -2,7 +2,7 @@
 
 📍 [InnLab](../README.md) › [Estándares](README.md) › **Dependencias y herramientas**
 
-> **Resumen:** **no se impone herramienta** (npm o pnpm, Jest o Vitest…). Sí se exige que cada repo sea reproducible (lockfile y versión del runtime fijada), que tenga lint y formato automáticos, y que cada dependencia nueva se justifique.
+> **Resumen:** **no se impone herramienta** (npm o pnpm, Jest o Vitest…). Sí se exige que cada repo sea reproducible (**versiones exactas, nunca "latest"**, lockfile y runtime fijados), que tenga lint y formato automáticos, y que cada dependencia nueva se justifique.
 
 ## Lo que se exige (sin importar la herramienta)
 
@@ -17,6 +17,22 @@
 **Lint en los repos TS/JS: ESLint** (lo usan todos; `indigo-backend` migra de oxlint a ESLint). **Formato: Prettier** con `{ "singleQuote": true, "trailingComma": "all" }`.
 
 Reglas de lint que no se desactivan en código nuevo: `no-explicit-any` (como mínimo `warn`) y, en backend, `no-floating-promises`.
+
+## Versiones fijadas
+
+Nada se instala como "la última versión": una instalación de hoy y una de dentro de seis meses deben dar exactamente lo mismo. Todo se actualiza con un PR que pasa el CI.
+
+| Qué | Cómo se fija | Ejemplo |
+| --- | --- | --- |
+| Dependencias del proyecto | Versión **exacta** en el manifiesto, sin `^` ni `~`. En npm/pnpm, `save-exact=true` en `.npmrc` para que las nuevas también entren exactas | `"zod": "4.6.5"` |
+| Lockfile | Versionado, y el CI instala sin modificarlo (`npm ci`, `pnpm install --frozen-lockfile`) | — |
+| Gestor de paquetes | Campo `packageManager` en `package.json` (o su equivalente) | `"packageManager": "pnpm@11.3.0"` |
+| Runtime | Versión completa en `.nvmrc` o `.python-version` | `24.13.1` |
+| GitHub Actions | Por **SHA del commit**, con la versión en un comentario. Una etiqueta como `@v4` puede moverse | `actions/checkout@11d5960… # v4.4.0` |
+| Imágenes de Docker y servicios del CI | Con su versión de parche, nunca `latest` | `postgres:16.15-alpine` |
+| Runner del CI | Versión explícita | `ubuntu-24.04` |
+
+**Actualizaciones:** cada repo tiene `.github/dependabot.yml`, que abre PRs semanales contra `dev`. Los parches y menores van agrupados en un solo PR, y cada major en uno propio. Se fusionan como cualquier PR: CI en verde y revisión. El runtime (`.nvmrc`) se sube a mano.
 
 ## Agregar una dependencia
 

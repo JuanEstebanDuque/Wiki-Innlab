@@ -26,7 +26,8 @@
 1. Escribes el código y su test en tu rama `feat/…` o `fix/…`.
 2. Corres los tests en local antes de hacer push (`npm test` o su equivalente).
 3. Abres el PR. En "Cómo se probó" dices qué tests agregaste.
-4. **Cuando exista CI**, los tests corren solos en cada PR, y si fallan no se puede hacer merge (ver [Despliegue y CI/CD](../01-Estandares/despliegue-y-ambientes.md)).
+4. Los tests corren solos en cada PR con GitHub Actions, con su cobertura mínima. Si algo falla, el PR no se fusiona (ver [CI y calidad](../01-Estandares/ci-y-calidad.md)).
+5. Quien revisa prueba el cambio **a mano en staging** antes de aprobarlo (ver [Despliegue y CI/CD](../01-Estandares/despliegue-y-ambientes.md)).
 
 ## Páginas de esta sección
 
