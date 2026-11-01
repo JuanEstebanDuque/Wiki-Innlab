@@ -2,7 +2,7 @@
 
 📍 [InnLab](../../README.md) › [Proyectos](../README.md) › [Índigo](README.md) › **indigo-user-space**
 
-> **Resumen:** frontend de Índigo en **Vue 3 + Vite + TypeScript**, con el portal del profesor (conectado al backend) y el portal empresa. Inicia sesión por el SSO de InnLab Core, usa el color naranja del design system de iNNLAB y tiene CI con pruebas unitarias y **E2E con Playwright**: es el **repo de referencia de frontend** para el estándar de [CI y calidad](../../01-Estandares/ci-y-calidad.md). Vue se eligió por velocidad de desarrollo, rendimiento y curva de aprendizaje, y **así se queda**.
+> **Resumen:** frontend de Índigo en **Vue 3 + Vite + TypeScript**, con el portal del profesor y el portal empresa, los dos conectados a indigo-backend. Inicia sesión por el SSO de InnLab Core, usa el color naranja del design system de iNNLAB y tiene CI con pruebas unitarias y **E2E con Playwright**: es el **repo de referencia de frontend** para el estándar de [CI y calidad](../../01-Estandares/ci-y-calidad.md). Vue se eligió por velocidad de desarrollo, rendimiento y curva de aprendizaje, y **así se queda**.
 
 ## Ficha
 
@@ -25,17 +25,17 @@ cp .env.example .env   # los valores los da el responsable del proyecto
 npm run dev            # http://localhost:5174 (el 5173 es del hub de InnLab Core)
 ```
 
-- Con `VITE_AUTH_DEV=true` entra sin InnLab Core y el backend responde como su usuario de desarrollo.
-- Con `VITE_AUTH_DEV=true` y `VITE_DEMO_EMPRESA=true` entra al portal empresa con una dueña de ejemplo, sin backend.
+- `VITE_INDIGO_API_URL` apunta al prefijo `/api` del backend (`http://localhost:3000/api`).
+- Con `VITE_AUTH_DEV=true` entra sin InnLab Core y el backend responde como su usuario de desarrollo; si el backend tiene `AUTH_DEV_EMPRESA_ID`, también entra al portal empresa como dueño de esa empresa.
 
 ## Pantallas
 
 | Portal | Rutas |
 | --- | --- |
 | Profesor | Panel de control, diagnosticadores (lista, detalle y asistente de creación), análisis comparativo, reporte por empresa y protocolo académico |
-| Empresa (owner/admin) | Inicio, catálogo y solicitud de aplicación, aplicaciones, resultados (Free y Premium), notificaciones y configuración con plan y método de pago |
+| Empresa (owner/admin) | Inicio, catálogo y solicitud de aplicación (participantes según el público del diagnóstico), aplicaciones (ampliar plazo y recordatorio), resultados (Free y Premium), notificaciones y configuración con equipo, plan y método de pago |
 
-El sidebar es el del Figma (colapsable a 57px) y cada portal define su menú en `src/components/dashboard/menus.ts`.
+El sidebar es el del Figma (colapsable a 57px) y cada portal define su menú en `src/components/dashboard/menus.ts`. La barra superior del profesor tiene un buscador (diagnósticos de todos y empresas de sus propios diagnósticos) y la campana de notificaciones.
 
 ## Testing y CI
 
@@ -56,5 +56,4 @@ npm run lint
 
 ## Pendientes
 
-1. **Conectar el portal empresa al backend.** Hoy sus pantallas usan datos de ejemplo en memoria (`src/empresa/datos.ts` y `estado.ts`), aunque los endpoints ya existen en indigo-backend: hay que cambiar las acciones de `estado.ts` por llamadas a `src/api/indigo.ts`.
-2. **Buscador y notificaciones de la barra superior del portal profesor:** se ven, pero todavía no hacen nada.
+1. **Pasarela de pago real:** el plan y la tarjeta son simulados (solo se guardan la marca y los 4 últimos dígitos).
