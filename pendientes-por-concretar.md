@@ -89,8 +89,8 @@ Lo que Core todavía no ofrece y que los productos van a necesitar. Detalle en [
 | [foresight-backend](05-Proyectos/foresight/foresight-backend.md) | **Revisar `getReportPreview`: endpoint público sin verificación de usuario** · sacar `.claude/` del repo · README dice Keycloak (es Cognito) · cero tests · reactivar reglas de ESLint · limpiar ramas | 🔴 |
 | [foresight-scrapping](05-Proyectos/foresight/foresight-scrapping.md) | **Rotar la key de SerpAPI expuesta** (la rota el dueño) y sacar credenciales y correos personales de los notebooks · README, `.gitignore`, `requirements.txt` · crear `dev` · renombrar notebooks | 🔴 |
 | [foresight-landing](05-Proyectos/foresight/foresight-landing.md) | **Declarar `react-router-dom` en `package.json`** (un `npm install` limpio falla) · sincronizar `main` con `dev` · borrar stubs vacíos y carpetas duplicadas | 🔴 |
-| [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | Alineado con el estándar (auth con Core, migraciones, ESLint, CI con SonarQube, Swagger). Queda: decidir el prefijo `/api` | 🟢 |
-| [indigo-user-space](05-Proyectos/indigo/indigo-user-space.md) | Alineado con el estándar (SSO de Core, CI con Playwright). Queda: **conectar el portal empresa al backend** (hoy usa datos de ejemplo) | 🟠 |
+| [indigo-backend](05-Proyectos/indigo/indigo-backend.md) | Alineado con el estándar (auth con Core, migraciones, ESLint, CI con SonarQube, Swagger, prefijo `/api`) | 🟢 |
+| [indigo-user-space](05-Proyectos/indigo/indigo-user-space.md) | Alineado con el estándar (SSO de Core, CI con Playwright); los dos portales conectados al backend | 🟢 |
 | [innlab-core-api](03-InnLab-Core/innlab-core-api.md) | README real · `.env.example` · CORS desde variable de entorno · `logging: true` solo en desarrollo · tests de guards y SSO · Swagger · limpiar ramas | 🟠 |
 | [innlab-core-user-space](03-InnLab-Core/innlab-core-user-space.md) | Crear `dev` · README real · `.env.example` · URLs de productos a variables de entorno · tests | 🟠 |
 | [product-integration-guide](03-InnLab-Core/product-integration-guide.md) | Crear `dev` · `GUIDE.md` que enlace a la wiki · tests de `/health` y del guard | 🟢 |

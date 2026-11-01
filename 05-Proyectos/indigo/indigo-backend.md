@@ -24,10 +24,12 @@ pnpm install
 cp .env.example .env    # los valores los da el responsable del proyecto
 docker compose up -d     # Postgres 16 local
 pnpm db:migrar           # aplica las migraciones de db/migrations
-pnpm start:dev           # http://localhost:3000 · Swagger en /docs
+pnpm start:dev           # API en http://localhost:3000/api · Swagger en /docs
 ```
 
-Con `AUTH_DEV_USUARIO_ID` en el `.env` (solo con `NODE_ENV=development`) el backend responde como ese usuario sin pasar por InnLab Core.
+Todas las rutas van bajo **`/api`** (`GET /api/usuarios/me`); `/health` y `/health/ready` quedan en la raíz para el balanceador e InnLab Core.
+
+Con `AUTH_DEV_USUARIO_ID` en el `.env` (solo con `NODE_ENV=development`) el backend responde como ese usuario sin pasar por InnLab Core; con `AUTH_DEV_EMPRESA_ID`, además, como dueño de esa empresa (portal empresa).
 
 ## Módulos
 
@@ -37,7 +39,7 @@ Con `AUTH_DEV_USUARIO_ID` en el `.env` (solo con `NODE_ENV=development`) el back
 | `aplicaciones/` | Aplicaciones de un diagnóstico a empresas, cobertura, resultados y análisis comparativo |
 | `comercial/` | Oportunidades, invitaciones a empresas (link con token) y aprobación de solicitudes |
 | `empresa/` | Portal empresa: catálogo, solicitudes, aplicaciones, resultados, equipo y áreas, plan y método de pago, reportes |
-| `notificaciones/` · `protocolo/` · `usuarios/` · `admin/` | Notificaciones, protocolo académico, usuario actual y vista del admin |
+| `notificaciones/` · `protocolo/` · `usuarios/` · `admin/` | Notificaciones (empresa, comercial y el profesor autor cuando una aplicación de su diagnóstico finaliza), protocolo académico, usuario actual y vista del admin |
 | `common/` | Auth con Core, base de datos, filtros, guards, límite de tasa, resiliencia (circuit breaker, reintentos, deadlines), trabajos, correo, observabilidad, Swagger |
 
 La lista completa de endpoints está en **Swagger** (`/docs`), con quién puede usar cada uno; el detalle de flujos, en `docs/endpoints.md`, y la colección de Postman, en `postman/`.
@@ -74,6 +76,5 @@ También tiene `smoke.yml` (revisión de un ambiente desplegado) y `promocion.ym
 
 ## Pendientes
 
-1. **Prefijo `/api`:** la [regla de NestJS](../../04-Stacks/nestjs.md) lo pide y hoy las rutas no lo tienen. Cambiarlo afecta al front y a los enlaces de invitación ya enviados: se decide con el equipo.
-2. **Pasarela de pago real:** el plan y el método de pago del portal empresa son simulados (solo se guardan la marca y los 4 últimos dígitos).
-3. Decidir si los identificadores de dominio siguen en español (ver [Pendientes por concretar](../../pendientes-por-concretar.md)).
+1. **Pasarela de pago real:** el plan y el método de pago del portal empresa son simulados (solo se guardan la marca y los 4 últimos dígitos).
+2. Decidir si los identificadores de dominio siguen en español (ver [Pendientes por concretar](../../pendientes-por-concretar.md)).
